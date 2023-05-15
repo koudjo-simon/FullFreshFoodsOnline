@@ -1,0 +1,92 @@
+<div class="form_container">
+    
+    <form [formGroup]="foodFormGroup" (ngSubmit)="handleSubmit()">
+        <h3>ADD FOOD FORM</h3>
+        <div class="form_lines">
+            <label for="name">Name :</label>
+            <div class="input_div">
+                <input placeholder="Ex: Pizza" type="text" id="name" formControlName="name">
+                <small *ngIf="foodFormGroup.controls['name'].errors && foodFormGroup.controls['name'].touched" class="text-danger">
+                    {{ myValService.getValidatorErrorMessage('Name', foodFormGroup.controls['name'].errors) }}
+                </small>
+            </div>
+        </div>
+        <div class="form_lines">
+            <label for="price">Price :</label>
+            <div class="input_div">
+                <input placeholder="Ex: 20" type="number" id="price" formControlName="price">
+                <small *ngIf="foodFormGroup.controls['price'].errors && foodFormGroup.controls['price'].touched" class="text-danger">
+                    {{ myValService.getValidatorErrorMessage('Price', foodFormGroup.controls['price'].errors) }}
+                </small>
+            </div>
+        </div>
+        <div class="form_lines">
+            <label for="tags">Tags :</label>
+            <div class="input_div">
+                <input placeholder="Ex: Fastfood, Slowfood, Humberger " type="text" id="tags" formControlName="tags">
+                <small *ngIf="foodFormGroup.controls['tags'].errors && foodFormGroup.controls['tags'].touched" class="text-danger">
+                    {{ myValService.getValidatorErrorMessage('Tags', foodFormGroup.controls['tags'].errors) }}
+                </small>
+            </div>
+        </div>
+        <div class="form_lines">
+            <label for="imageUrl">Image Url :</label>
+            <div class="input_div">
+                <input type="file" id="imageUrl" formControlName="imageUrl">
+                <small *ngIf="foodFormGroup.controls['imageUrl'].errors && foodFormGroup.controls['imageUrl'].touched" class="text-danger">
+                    {{ myValService.getValidatorErrorMessage('Image Url', foodFormGroup.controls['imageUrl'].errors) }}
+                </small>
+            </div>
+        </div>
+        <div class="form_lines">
+            <label for="cookTime">Cook Time :</label>
+            <div class="cookTime">
+                <div class="cookTimeDiv">
+                    <label for="">Hours</label>
+                    <div class="input_div">
+                        <input placeholder="Ex: 12" type="number" max="23" min="0" formControlName="hours">
+                        <small *ngIf="foodFormGroup.controls['hours'].errors && foodFormGroup.controls['hours'].touched" class="text-danger">
+                            {{ myValService.getValidatorErrorMessage('Hours', foodFormGroup.controls['hours'].errors) }}
+                        </small>
+                    </div>
+                </div>
+                <div class="cookTimeDiv">
+                    <label for="">Minutes</label>
+                    <div class="input_div">
+                        <input placeholder="Ex: 45" type="number" max="59" min="0" formControlName="minutes">
+                        <small *ngIf="foodFormGroup.controls['minutes'].errors && foodFormGroup.controls['minutes'].touched" class="text-danger">
+                            {{ myValService.getValidatorErrorMessage('Minutes', foodFormGroup.controls['minutes'].errors) }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form_lines">
+            <label for="origins">Origins :</label>
+            <div class="input_div">
+                <input type="text" id="origins" formControlName="origins">
+                <small *ngIf="foodFormGroup.controls['origins'].errors && foodFormGroup.controls['origins'].touched" class="text-danger">
+                    {{ myValService.getValidatorErrorMessage('Origins', foodFormGroup.controls['origins'].errors) }}
+                </small>
+            </div>
+        </div>
+        <div class="form_lines">
+            <label for="star">Star :</label>
+            <select formControlName="star" id="star">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+        <div class="form_lines">
+            <label for="favorite">Favorite :</label>
+            <select formControlName="favorite" id="favorite">
+                <option value="False">No</option>
+                <option value="True">Yes</option>
+            </select>
+        </div>
+        <button type="submit">Register</button>
+      </form>
+</div>
