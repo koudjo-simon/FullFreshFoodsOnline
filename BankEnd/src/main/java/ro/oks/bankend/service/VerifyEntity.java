@@ -2,10 +2,13 @@ package ro.oks.bankend.service;
 
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import ro.oks.bankend.exceptions.CommandLineNotFoundException;
 import ro.oks.bankend.exceptions.CommandNotFoundException;
 import ro.oks.bankend.exceptions.CustomerNotFoundException;
 import ro.oks.bankend.exceptions.FoodNotFoodException;
 import ro.oks.bankend.model.Command;
+import ro.oks.bankend.model.CommandLine;
 import ro.oks.bankend.model.Customer;
 import ro.oks.bankend.model.Food;
 import ro.oks.bankend.repositories.CommandLineRepository;
@@ -13,16 +16,17 @@ import ro.oks.bankend.repositories.CommandRepository;
 import ro.oks.bankend.repositories.CustomerRepository;
 import ro.oks.bankend.repositories.FoodRepository;
 
+
+@Service
 @Slf4j
-@NoArgsConstructor(force = true)
 public class VerifyEntity {
 
-    private final FoodRepository foodRepository;
-    private final CustomerRepository customerRepository;
-    private final CommandRepository commandRepository;
-    private final CommandLineRepository commandLineRepository;
+    private FoodRepository foodRepository;
+    private CustomerRepository customerRepository;
+    private CommandRepository commandRepository;
+    private CommandLineRepository commandLineRepository;
 
-    protected VerifyEntity(FoodRepository foodRepository,
+    public VerifyEntity(FoodRepository foodRepository,
                         CustomerRepository customerRepository,
                         CommandRepository commandRepository,
                         CommandLineRepository commandLineRepository) {
@@ -55,4 +59,10 @@ public class VerifyEntity {
                 );
     }
 
+    public CommandLine verifyCommandLine(String commandLineId) throws CommandLineNotFoundException {
+        return commandLineRepository.findById(commandLineId)
+                .orElseThrow(
+                        () -> new CommandLineNotFoundException("Command Line with id = "+commandLineId+" not found")
+                );
+    }
 }

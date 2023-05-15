@@ -20,9 +20,11 @@ import java.util.stream.Collectors;
 public class CustomerService implements CustomerServiceInterface {
 
     private final CustomerRepository customerRepository;
+    private final VerifyEntity verifyEntity;
 
-    public CustomerService(CustomerRepository customerRepository) {
+    public CustomerService(CustomerRepository customerRepository, VerifyEntity verifyEntity) {
         this.customerRepository = customerRepository;
+        this.verifyEntity = verifyEntity;
     }
 
     @Override
@@ -36,7 +38,7 @@ public class CustomerService implements CustomerServiceInterface {
     @Override
     public CustomerDTO getCustomer(String customerId) throws CustomerNotFoundException {
         log.info("Get customers with id = "+customerId);
-        return CustomerMapper.convertToCustomerDTO(new VerifyEntity().verifyCustomer(customerId));
+        return CustomerMapper.convertToCustomerDTO(verifyEntity.verifyCustomer(customerId));
     }
 
     @Override
@@ -50,7 +52,7 @@ public class CustomerService implements CustomerServiceInterface {
     @Override
     public CustomerDTO updateCustomer(String customerId, CustomerDTO customerDTO) throws CustomerNotFoundException {
         log.info("Updating Customer with id = "+customerId);
-        Customer customer = new VerifyEntity().verifyCustomer(customerId);
+        Customer customer = verifyEntity.verifyCustomer(customerId);
         customerDTO.setCustomerId(customer.getCustomerId());
         return CustomerMapper.convertToCustomerDTO(
                 customerRepository.save(CustomerMapper.convertToCustomer(customerDTO)));
@@ -59,7 +61,7 @@ public class CustomerService implements CustomerServiceInterface {
     @Override
     public void deleteCustomer(String customerId) throws CustomerNotFoundException {
         log.info("Deleting Customer with id = "+customerId);
-            new VerifyEntity().verifyCustomer(customerId);
+            verifyEntity.verifyCustomer(customerId);
             customerRepository.deleteById(customerId);
     }
 }

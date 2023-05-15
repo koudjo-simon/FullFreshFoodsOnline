@@ -26,10 +26,12 @@ public class CommandService implements CommandServiceInterface {
 
     private final CommandRepository commandRepository;
     private final CustomerRepository customerRepository;
+    private final VerifyEntity verifyEntity;
 
-    public CommandService(CommandRepository commandRepository, CustomerRepository customerRepository) {
+    public CommandService(CommandRepository commandRepository, CustomerRepository customerRepository, VerifyEntity verifyEntity) {
         this.commandRepository = commandRepository;
         this.customerRepository = customerRepository;
+        this.verifyEntity = verifyEntity;
     }
 
     @Override
@@ -42,14 +44,14 @@ public class CommandService implements CommandServiceInterface {
     @Override
     public CommandDTO getCommand(String commandId) throws CommandNotFoundException {
         log.info("Getting command with id = "+commandId);
-        return CommandMapper.convertToCommandDTO(new VerifyEntity().verifyCommand(commandId));
+        return CommandMapper.convertToCommandDTO(verifyEntity.verifyCommand(commandId));
     }
 
     @Override
-    public CommandDTO addCommand(String customerId, CommandDTO commandDTO) throws CustomerNotFoundException {
+    public CommandDTO addCommand(String customerId) throws CustomerNotFoundException {
         log.info("Adding customer ...");
         // Recherche du client
-        Customer customer = new VerifyEntity().verifyCustomer(customerId);
+        Customer customer = verifyEntity.verifyCustomer(customerId);
         Command command = new Command();
         Date date = new Date();
         command.setCommandId(UUID.randomUUID().toString());
@@ -64,14 +66,14 @@ public class CommandService implements CommandServiceInterface {
     @Override
     public CommandDTO updateCommand(String commandId, CommandDTO commandDTO) throws CommandNotFoundException {
         log.info("updating command with id = "+commandId);
-        new VerifyEntity().verifyCommand(commandId);
+        verifyEntity.verifyCommand(commandId);
         return CommandMapper.convertToCommandDTO(
                 commandRepository.save(CommandMapper.confertToCommand(commandDTO)));
     }
 
     @Override
     public void deleteCommand(String commandId) throws CommandNotFoundException {
-        new VerifyEntity().verifyCommand(commandId);
+        verifyEntity.verifyCommand(commandId);
         commandRepository.deleteById(commandId);
     }
 }

@@ -22,9 +22,11 @@ import java.util.stream.Collectors;
 public class FoodService implements FoodServiceInterface {
 
     private final FoodRepository foodRepository;
+    private final VerifyEntity verifyEntity;
 
-    public FoodService(FoodRepository foodRepository) {
+    public FoodService(FoodRepository foodRepository, VerifyEntity verifyEntity) {
         this.foodRepository = foodRepository;
+        this.verifyEntity = verifyEntity;
     }
 
     @Override
@@ -37,7 +39,7 @@ public class FoodService implements FoodServiceInterface {
     @Override
     public FoodDTO getFood(String foodId) throws FoodNotFoodException {
         log.info("Food with id = "+ foodId +" getting");
-        Food food = new VerifyEntity().verifyFood(foodId);
+        Food food = verifyEntity.verifyFood(foodId);
         return FoodMapper.convertToFoodDTO(food);
     }
 
@@ -56,10 +58,11 @@ public class FoodService implements FoodServiceInterface {
     public FoodDTO updateFood(String foodId, FoodDTO foodDTO) {
         log.info("Updating food with id = " + foodId);
         try {
-            Food food = new VerifyEntity().verifyFood(foodId);
+            Food food = verifyEntity.verifyFood(foodId);
             foodDTO.setAddDate(food.getAddDate());
             foodDTO.setLastModifiedDate(new Date());
             foodDTO.setFoodStatus(food.getFoodStatus());
+            foodDTO.setFoodId(food.getFoodId());
             return FoodMapper.convertToFoodDTO(foodRepository.save(FoodMapper.convertToFood(foodDTO)));
         } catch (FoodNotFoodException e) {
             e.printStackTrace();
@@ -71,7 +74,7 @@ public class FoodService implements FoodServiceInterface {
     public void deleteFood(String foodId) {
         log.info("Deleting food with id = "+foodId);
         try {
-            new VerifyEntity().verifyFood(foodId);
+            verifyEntity.verifyFood(foodId);
             foodRepository.deleteById(foodId);
         } catch (FoodNotFoodException e) {
             e.printStackTrace();

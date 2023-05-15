@@ -9,7 +9,7 @@ import java.util.List;
 public interface CommandServiceInterface {
     List<CommandDTO> getCommands();
     CommandDTO getCommand(String commandId) throws CommandNotFoundException;
-    CommandDTO addCommand(String customerId ,CommandDTO commandDTO) throws CustomerNotFoundException;
+    CommandDTO addCommand(String customerId) throws CustomerNotFoundException;
     CommandDTO updateCommand(String commandId, CommandDTO commandDTO) throws CommandNotFoundException;
     void deleteCommand(String commandId) throws CommandNotFoundException;
 }

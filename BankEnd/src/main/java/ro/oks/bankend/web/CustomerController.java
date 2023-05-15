@@ -1,52 +1,47 @@
 package ro.oks.bankend.web;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ro.oks.bankend.dtos.CustomerDTO;
-import ro.oks.bankend.mappers.CustomerMapper;
-import ro.oks.bankend.model.Customer;
-import ro.oks.bankend.repositories.CustomerRepository;
+import ro.oks.bankend.exceptions.CustomerNotFoundException;
+import ro.oks.bankend.service.interfacesService.CustomerServiceInterface;
 import ro.oks.bankend.web.interfacesWeb.CustomerApiInterface;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin("*")
 public class CustomerController implements CustomerApiInterface {
-    private CustomerRepository customerRepository;
+    private final CustomerServiceInterface customerServiceInterface;
 
-    public CustomerController(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
+    public CustomerController(CustomerServiceInterface customerServiceInterface) {
+        this.customerServiceInterface = customerServiceInterface;
     }
 
     @Override
     public List<CustomerDTO> getCustomers(){
-        return customerRepository.findAll().stream()
-                .map(customer -> CustomerMapper.convertToCustomerDTO(customer)).collect(Collectors.toList());
+        return customerServiceInterface.getCustomers();
     }
 
     @Override
-    public CustomerDTO getCustomer(@PathVariable String id) {
-        Customer customer  = customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Error, customer not found"));
-        return CustomerMapper.convertToCustomerDTO(customer);
+    public CustomerDTO getCustomer(@PathVariable String id) throws CustomerNotFoundException {
+        return customerServiceInterface.getCustomer(id);
     }
 
     @Override
     public CustomerDTO addCustomer(CustomerDTO customerDTO) {
-        return null;
+        return customerServiceInterface.addCustomer(customerDTO);
     }
 
     @Override
-    public CustomerDTO updateCustomer(String customerId) {
-        return null;
+    public CustomerDTO updateCustomer(String customerId, CustomerDTO customerDTO) throws CustomerNotFoundException {
+        return customerServiceInterface.updateCustomer(customerId, customerDTO);
     }
 
     @Override
-    public void deleteCustomer(String customerId) {
-
+    public void deleteCustomer(String customerId) throws CustomerNotFoundException {
+        customerServiceInterface.deleteCustomer(customerId);
     }
 
 }

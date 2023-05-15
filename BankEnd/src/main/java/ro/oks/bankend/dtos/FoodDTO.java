@@ -1,12 +1,7 @@
 package ro.oks.bankend.dtos;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.Data;
-import org.aspectj.bridge.ICommand;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import ro.oks.bankend.model.model_utils.FoodStatus;
 
 import java.util.Date;
@@ -22,7 +17,13 @@ public class FoodDTO {
     private String imageUrl;
     private String cookTIme;
     private String origins;
+
+    @Hidden
     private FoodStatus foodStatus;
+
+    @Hidden
     private Date addDate;
+
+    @Hidden
     private Date lastModifiedDate;
 }

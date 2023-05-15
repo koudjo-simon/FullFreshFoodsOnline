@@ -2,6 +2,9 @@ package ro.oks.bankend.web.interfacesWeb;
 
 import org.springframework.web.bind.annotation.*;
 import ro.oks.bankend.dtos.CommandLineDTO;
+import ro.oks.bankend.exceptions.CommandLineNotFoundException;
+import ro.oks.bankend.exceptions.CommandNotFoundException;
+import ro.oks.bankend.exceptions.FoodNotFoodException;
 import ro.oks.bankend.web.interfacesWeb.utils.Constants;
 
 import java.util.List;
@@ -12,15 +15,15 @@ public interface CommandLineApiInterface {
     String ID = "/{commandLineId}";
 
     @PostMapping(Constants.BASE_URL + URL + "/add")
-    List<CommandLineDTO> addCommandsLines(@RequestParam(name = "foodId") String foodId,
+    CommandLineDTO addCommandLine(@RequestParam(name = "foodId") String foodId,
                                           @RequestParam(name = "commandId") String commandId,
-                                          @RequestParam(name = "quantity") double quantity);
+                                          @RequestParam(name = "quantity") double quantity) throws FoodNotFoodException, CommandNotFoundException;
 
     @PutMapping(Constants.BASE_URL + URL + ID + "/update")
     CommandLineDTO updateCommandLine(@PathVariable String commandLineId,
-                                     @RequestBody CommandLineDTO commandLineDTO);
+                                     @RequestBody CommandLineDTO commandLineDTO) throws CommandLineNotFoundException;
 
     @DeleteMapping(Constants.BASE_URL + URL + ID + "/delete")
-    void deleteCommandLine(@PathVariable String commandLineId);
+    void deleteCommandLine(@PathVariable String commandLineId) throws CommandLineNotFoundException;
 
 }

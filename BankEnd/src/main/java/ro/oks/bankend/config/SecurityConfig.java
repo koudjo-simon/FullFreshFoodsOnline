@@ -21,7 +21,7 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-//@Configuration
+@Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
@@ -44,7 +44,7 @@ public class SecurityConfig {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(autReq -> {
-                    autReq.requestMatchers("/api/**").authenticated();
+                    //autReq.requestMatchers("/api/**").authenticated();
                     autReq.anyRequest().permitAll();
                 })
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

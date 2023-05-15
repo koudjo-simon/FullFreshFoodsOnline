@@ -10,4 +10,5 @@ public class CommandLineDTO {
     private double unitPrice;
     private double quantity;
     private double totalCommandLinePrice;
+
 }
