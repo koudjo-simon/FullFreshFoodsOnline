@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FoodService } from '../../services/food.service';
-import { Foods } from '../../shared/model/food';
+import {Food} from '../../shared/model/food';
 import { CartService } from '../../services/cart.service';
 
 @Component({
@@ -10,14 +10,13 @@ import { CartService } from '../../services/cart.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  foods: Foods[] = [];
+  foods: Food[] = [];
   private _foodFilter: string = '';
-  public filteredFoods: Foods[] = [];
-  private selectedFoods: Foods[] = [];
+  public filteredFoods: Food[] = [];
+  private selectedFoods: Food[] = [];
 
-
-  constructor(private fs: FoodService, 
-    private route: ActivatedRoute, 
+  constructor(private fs: FoodService,
+    private route: ActivatedRoute,
     private cartService: CartService,
     private router: Router){ }
 
@@ -42,21 +41,21 @@ export class HomeComponent implements OnInit {
     this.filteredFoods = this.foodFilter ? this.filterFoods(this.foodFilter) : this.foods;
   }
 
-  private filterFoods(criteria: string): Foods[] {
+  private filterFoods(criteria: string): Food[] {
     criteria = criteria.toLowerCase();
     const result = this.foods.filter(
-      (food: Foods) => food.name.toLowerCase().indexOf(criteria) != -1
+      (food: Food) => food.name.toLowerCase().indexOf(criteria) != -1
     );
     return result;
   }
 
-  public addToPanier(food: Foods): void{
+  public addToPanier(food: Food): void{
     this.selectedFoods.push(food);
     this.cartService.addToCart(food);
   }
 
-  public goToFoodDetail(id: number){
-    this.router.navigateByUrl("client/food/"+id);
+  public goToFoodDetail(id: string){
+    this.router.navigateByUrl("client/food/" + id).then(r  => true);
   }
 
 }

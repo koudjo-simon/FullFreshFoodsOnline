@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FoodService } from 'src/app/services/food.service';
-import { Foods } from 'src/app/shared/model/food';
+import { Food } from 'src/app/shared/model/food';
 import { Admin } from '../admin-model/admin';
 import { AuthenticationService } from '../admin-services/authentication/authentication.service';
 
@@ -13,10 +13,10 @@ import { AuthenticationService } from '../admin-services/authentication/authenti
 export class FoodListComponent implements OnInit{
 
   public authAdmin!: Admin;
-  public foods: Foods[] = [];
+  public foods: Food[] = [];
   public errorMessage!: string;
   private _searchKeyword: string = "";
-  public searchFoods: Foods[] = [];
+  public searchFoods: Food[] = [];
 
   constructor(private foodService: FoodService,
     private router: Router,
@@ -50,18 +50,18 @@ export class FoodListComponent implements OnInit{
     this.searchFoods = this.searchKeyword ? this.filterFoods(this.searchKeyword) : this.foods;
   }
 
-  private filterFoods(criteria: string): Foods[]{
+  private filterFoods(criteria: string): Food[]{
     criteria = criteria.toLowerCase();
     const res = this.foods.filter(
-      (food: Foods) => food.name.toLowerCase().indexOf(criteria) != -1
+      (food: Food) => food.name.toLowerCase().indexOf(criteria) != -1
     );
     return res;
   }
 
-  handleDeleteFood(f: Foods){
+  handleDeleteFood(f: Food){
     let conf = confirm("Are you sure that you want to delete food "+f.name+" ?");
-    if (conf == false) return; 
-    this.foodService.deleteProductById(f.id).subscribe({
+    if (conf == false) return;
+    this.foodService.deleteProductById(f.foodId).subscribe({
       next : data => {
         let index = this.foods.indexOf(f);
         this.foods.splice(index, 1);
@@ -69,11 +69,11 @@ export class FoodListComponent implements OnInit{
     });
   }
 
-  handleEditFood(f: Foods){
+  handleEditFood(f: Food){
     if (this.authAdmin != undefined) {
-      let url = "/admin/"+ this.authAdmin.username + "/food/"+ "edit/" + f.id;
+      let url = "/admin/"+ this.authAdmin.username + "/food/"+ "edit/" + f.foodId;
       this.router.navigateByUrl(url);
     }
   }
-  
+
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Foods } from '../shared/model/food';
+import { Food } from '../shared/model/food';
 
 @Component({
   selector: 'app-search',
@@ -10,7 +10,7 @@ import { Foods } from '../shared/model/food';
 export class SearchComponent {
   searchItem : string = '';
   private _foodFilter: string = '';
-  public filteredFoods: Foods[] = [];
+  public filteredFoods: Food[] = [];
 
   constructor(private route: ActivatedRoute, private router: Router){
 

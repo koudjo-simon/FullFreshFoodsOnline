@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Foods } from '../../shared/model/food';
+import { Food } from '../../shared/model/food';
 import { FoodService } from '../../services/food.service';
 
 @Component({
@@ -10,10 +10,10 @@ import { FoodService } from '../../services/food.service';
 })
 export class FoodDetailComponent implements OnInit{
 
-  foodId!: number;
-  food!: Foods;
+  foodId!: string;
+  food!: Food;
 
-  constructor(private route: ActivatedRoute, 
+  constructor(private route: ActivatedRoute,
     private foodService: FoodService,
     private router: Router){
     this.foodId = this.route.snapshot.params['id'];

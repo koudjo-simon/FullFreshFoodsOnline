@@ -1,7 +1,10 @@
-import { Foods } from "./food";
+import {Food} from "./food";
 
 export interface CommandLine {
-    food : Foods,
-    quantity: number,
-    totalPrice: number
+  commandLineId: string,
+  food: Food,
+  commandId: string,
+  unitPrice: number,
+  quantity: number,
+  totalCommandLinePrice: number
 }

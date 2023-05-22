@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
-import { Foods } from 'src/app/shared/model/food';
+import {Injectable} from '@angular/core';
+import {Observable, of, throwError} from 'rxjs';
+import {Food} from 'src/app/shared/model/food';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FoodService {
 
-  private foods: Foods[] = [
+  private foods: Food[] = [
     {
-      id: 1,
+      foodId: "1",
       name: "pizza pepperoni",
       price: 5,
       favorite: true,
@@ -17,10 +17,13 @@ export class FoodService {
       tags: ["FastFood", "Pizza", "Lunch"],
       imageUrl: "./assets/images/food-1.jpg",
       cookTime: "10-12",
-      origins: ["Italy"]
+      origins: ["Italy"],
+      addDate: "",
+      foodStatus: "",
+      lastModifiedDate: ""
     },
     {
-      id: 2,
+      foodId: "2",
       name: "Hamburger",
       price: 5,
       favorite: false,
@@ -28,10 +31,13 @@ export class FoodService {
       tags: ["FastFood", "Hamburger"],
       imageUrl: "./assets/images/food-2.jpg",
       cookTime: "10-45",
-      origins: ["Germany", "US"]
+      origins: ["Germany", "US"],
+      lastModifiedDate: "",
+      foodStatus: "",
+      addDate: ""
     },
     {
-      id: 3,
+      foodId: "3",
       name: "fresed patate",
       price: 20,
       favorite: true,
@@ -39,10 +45,13 @@ export class FoodService {
       tags: ["SlowFood", "Lunch"],
       imageUrl: "./assets/images/food-3.jpg",
       cookTime: "20-30",
-      origins: ["Persia", "Middle east", "China"]
+      origins: ["Persia", "Middle east", "China"],
+      addDate: "",
+      foodStatus: "",
+      lastModifiedDate: ""
     },
     {
-      id: 4,
+      foodId: "4",
       name: "Hamburger",
       price: 12,
       favorite: true,
@@ -50,10 +59,13 @@ export class FoodService {
       tags: ["FastFood", "Hamburger"],
       imageUrl: "./assets/images/food-4.jpg",
       cookTime: "10-15",
-      origins: ["Germany", "US"]
+      origins: ["Germany", "US"],
+      lastModifiedDate: "",
+      foodStatus: "",
+      addDate: ""
     },
     {
-      id: 5,
+      foodId: "5",
       name: "Vegetables pizza",
       price: 20,
       favorite: false,
@@ -61,10 +73,13 @@ export class FoodService {
       tags: ["FastFood", "Pizza"],
       imageUrl: "./assets/images/food-5.jpg",
       cookTime: "40-50",
-      origins: ["Italy"]
+      origins: ["Italy"],
+      addDate: "",
+      foodStatus: "",
+      lastModifiedDate: ""
     },
     {
-      id: 6,
+      foodId: "6",
       name: "Spaghetti",
       price: 20,
       favorite: true,
@@ -72,10 +87,13 @@ export class FoodService {
       tags: ["LowFood", "Spaghetti"],
       imageUrl: "./assets/images/food-6.jpg",
       cookTime: "40-50",
-      origins: ["Italy"]
+      origins: ["Italy"],
+      addDate: "",
+      foodStatus: "",
+      lastModifiedDate: ""
     },
     {
-      id: 7,
+      foodId: "7",
       name: "Spaghetti",
       price: 10,
       favorite: false,
@@ -83,10 +101,13 @@ export class FoodService {
       tags: ["FastFood", "Pizza", "Lunch"],
       imageUrl: "./assets/images/food-7.jpg",
       cookTime: "10-12",
-      origins: ["Italy"]
+      origins: ["Italy"],
+      addDate: "",
+      foodStatus: "",
+      lastModifiedDate: ""
     },
     {
-      id: 8,
+      foodId: "8",
       name: "pizza pepperoni",
       price: 10,
       favorite: false,
@@ -94,29 +115,33 @@ export class FoodService {
       tags: ["FastFood", "Pizza", "Lunch"],
       imageUrl: "./assets/images/food-8.jpg",
       cookTime: "10-12",
-      origins: ["Italy"]
+      origins: ["Italy"],
+      addDate: "",
+      foodStatus: "",
+      lastModifiedDate: ""
     }
   ];
 
-  constructor() { }
+  constructor() {
+  }
 
-  public getAll():Observable<Foods[]>{
+  public getAll(): Observable<Food[]> {
     return of(this.foods);
   }
 
-  public getFoodById(id: number): Observable<Foods>{
-    let fd = this.foods.find(f => f.id == id);
+  public getFoodById(id: string): Observable<Food> {
+    let fd = this.foods.find(f => f.foodId == id);
     if (fd == undefined) return throwError(() => new Error("Foods undefined"));
     return of(fd);
   }
 
-  public deleteProductById(id: number): Observable<boolean>{
-    this.foods = this.foods.filter(p => p.id != id);
+  public deleteProductById(id: string): Observable<boolean> {
+    this.foods = this.foods.filter(p => p.foodId != id);
     return of(true);
   }
 
-  public editFoodById(food: Foods): Observable<Foods>{
-    this.foods = this.foods.map(f => (f.id == food.id) ? food : f);
+  public editFoodById(food: Food): Observable<Food> {
+    this.foods = this.foods.map(f => (f.foodId == food.foodId) ? food : f);
     return of(food);
   }
 

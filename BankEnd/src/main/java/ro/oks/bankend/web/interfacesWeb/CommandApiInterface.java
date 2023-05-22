@@ -9,7 +9,7 @@ import ro.oks.bankend.web.interfacesWeb.utils.Constants;
 import java.util.List;
 
 public interface CommandApiInterface {
-    String URL = "/command";
+    String URL = "/commands";
     String ID = "/{commandId}";
 
     @GetMapping(Constants.BASE_URL + URL)
@@ -18,11 +18,13 @@ public interface CommandApiInterface {
     @GetMapping(Constants.BASE_URL + URL + ID)
     CommandDTO getCommand(@PathVariable String commandId) throws CommandNotFoundException;
 
-    @PostMapping(Constants.BASE_URL + URL + "/addFor/" + "/{customerId}")
-    CommandDTO addCommand(@PathVariable String customerId) throws CustomerNotFoundException;
+    @GetMapping(Constants.BASE_URL + URL + "/addFor/{customerId}")
+    CommandDTO addCommand(@PathVariable String customerId)
+            throws CustomerNotFoundException;
 
     @PutMapping(Constants.BASE_URL + URL + ID + "/update")
-    CommandDTO updateCommand(@PathVariable String commandId, @RequestBody CommandDTO commandDTO) throws CommandNotFoundException;
+    CommandDTO updateCommand(@PathVariable String commandId, @RequestBody CommandDTO commandDTO)
+            throws CommandNotFoundException;
 
     @DeleteMapping(Constants.BASE_URL + URL + ID + "/delete")
     void deleteCommand(@PathVariable String commandId) throws CommandNotFoundException;

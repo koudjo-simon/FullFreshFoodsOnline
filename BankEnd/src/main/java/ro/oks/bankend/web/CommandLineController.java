@@ -9,11 +9,18 @@ import ro.oks.bankend.exceptions.FoodNotFoodException;
 import ro.oks.bankend.service.interfacesService.CommandLineServiceInterface;
 import ro.oks.bankend.web.interfacesWeb.CommandLineApiInterface;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin("*")
 public class CommandLineController implements CommandLineApiInterface {
 
     private final CommandLineServiceInterface commandLineServiceInterface;
+
+    @Override
+    public List<CommandLineDTO> getCommandLines(String commandId) throws CommandNotFoundException {
+        return this.commandLineServiceInterface.getCommandLines(commandId);
+    }
 
     public CommandLineController(CommandLineServiceInterface commandLineServiceInterface) {
         this.commandLineServiceInterface = commandLineServiceInterface;

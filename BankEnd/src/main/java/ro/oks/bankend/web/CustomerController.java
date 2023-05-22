@@ -25,8 +25,8 @@ public class CustomerController implements CustomerApiInterface {
     }
 
     @Override
-    public CustomerDTO getCustomer(@PathVariable String id) throws CustomerNotFoundException {
-        return customerServiceInterface.getCustomer(id);
+    public CustomerDTO getCustomer(String customerId) throws CustomerNotFoundException {
+        return customerServiceInterface.getCustomer(customerId);
     }
 
     @Override

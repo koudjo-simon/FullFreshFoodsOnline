@@ -1,5 +1,5 @@
 <div class="form_container">
-    
+
     <form [formGroup]="foodFormGroup" (ngSubmit)="handleSubmit()">
         <h3>ADD FOOD FORM</h3>
         <div class="form_lines">
@@ -39,10 +39,10 @@
             </div>
         </div>
         <div class="form_lines">
-            <label for="cookTime">Cook Time :</label>
+            <label>Cook Time :</label>
             <div class="cookTime">
                 <div class="cookTimeDiv">
-                    <label for="">Hours</label>
+                    <label>Hours</label>
                     <div class="input_div">
                         <input placeholder="Ex: 12" type="number" max="23" min="0" formControlName="hours">
                         <small *ngIf="foodFormGroup.controls['hours'].errors && foodFormGroup.controls['hours'].touched" class="text-danger">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div class="cookTimeDiv">
-                    <label for="">Minutes</label>
+                    <label >Minutes</label>
                     <div class="input_div">
                         <input placeholder="Ex: 45" type="number" max="59" min="0" formControlName="minutes">
                         <small *ngIf="foodFormGroup.controls['minutes'].errors && foodFormGroup.controls['minutes'].touched" class="text-danger">

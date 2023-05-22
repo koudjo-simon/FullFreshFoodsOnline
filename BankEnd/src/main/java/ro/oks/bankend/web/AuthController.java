@@ -22,6 +22,7 @@ public class AuthController {
     public AuthController(JwtEncoder jwtEncoder) {
         this.jwtEncoder = jwtEncoder;
     }
+
     @PostMapping("/api/token")
     public Map<String, String> getToken(Authentication authentication) {
         Map<String, String> idToken = new HashMap<>();

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
-import { Foods } from 'src/app/shared/model/food';
+import {Food} from 'src/app/shared/model/food';
 import { Command } from '../../shared/model/command';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Client } from 'src/app/shared/model/client';
+import { Customer } from 'src/app/shared/model/customer';
 import { CommandLine } from 'src/app/shared/model/command-line';
 import { CommandService } from '../../services/command.service';
 import { Router } from '@angular/router';
@@ -16,10 +16,10 @@ import { MyValidatorsService } from 'src/app/services/my-validators.service';
 })
 export class CommandComponent implements OnInit{
 
-  public commandFoods!: Foods[];
+  public commandFoods!: Food[];
   public errorMessage!: string;
   public totalPrice: number = 0;
-  
+
   public commandLines: CommandLine[] = [];
 
   public commandFormGroup!: FormGroup;
@@ -32,21 +32,7 @@ export class CommandComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    /* this.cartService.getCartFoods().subscribe({
-      next: data => {
-        this.commandFoods = data;
-        this.commandFoods.forEach(f =>{
-          this.totalPrice += f.price;
-        })
-        console.log("Mes foods ", this.commandFoods)
-      },
-      error: err => {
-        this.errorMessage = err;
-        console.log("Une erreur",err);
-      }
-    }); */
-
-    this.cmdService.getCommandLines().subscribe({
+    this.cartService.getCartCmdLinesFoods().subscribe({
       next: data => {
         this.commandLines = data;
       },
@@ -75,10 +61,11 @@ export class CommandComponent implements OnInit{
     let region = this.commandFormGroup.value.region;
     let address = this.commandFormGroup.value.address;
 
-    let client: Client = {
+    let customer: Customer = {
+      customerId: "",
       firstname: firstname,
       lastname: lastname,
-      bithdate: bithdate,
+      age: 10,
       email: email,
       country: country,
       region: region,
@@ -95,9 +82,12 @@ export class CommandComponent implements OnInit{
     }); */
 
     let command: Command = {
-      client: client,
-      commands: this.commandLines,
-      date: new Date()
+      commandId: "",
+      totalCommandPrice: 0,
+      customer: customer,
+      commandDate: "",
+      lastModifiedDate: "",
+      commandStatus: ""
     }
 
     this.cmdService.addCommand(command).subscribe({
@@ -109,7 +99,7 @@ export class CommandComponent implements OnInit{
   }
 
   public setCommandPassed(){
-    
+
   }
 
 }

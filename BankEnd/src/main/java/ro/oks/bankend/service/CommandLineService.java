@@ -14,7 +14,9 @@ import ro.oks.bankend.model.Food;
 import ro.oks.bankend.repositories.CommandLineRepository;
 import ro.oks.bankend.service.interfacesService.CommandLineServiceInterface;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -58,5 +60,14 @@ public class CommandLineService implements CommandLineServiceInterface {
         log.info("Deleting command Line with id = "+commandLineId);
         verifyEntity.verifyCommandLine(commandLineId);
         commandLineRepository.deleteById(commandLineId);
+    }
+
+    @Override
+    public List<CommandLineDTO> getCommandLines(String commandId) throws CommandNotFoundException {
+        log.info("Get command Line with id = "+commandId+" lines");
+        verifyEntity.verifyCommand(commandId);
+        return commandLineRepository.findByCommandCommandId(commandId).stream()
+                .map(CommandLineMapper::convertToCommandLineDTO)
+                .collect(Collectors.toList());
     }
 }

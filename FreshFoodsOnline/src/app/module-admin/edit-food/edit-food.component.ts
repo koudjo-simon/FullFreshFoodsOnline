@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FoodService } from 'src/app/services/food.service';
-import { Foods } from 'src/app/shared/model/food';
+import { Food } from 'src/app/shared/model/food';
 
 @Component({
   selector: 'app-edit-food',
@@ -11,9 +11,9 @@ import { Foods } from 'src/app/shared/model/food';
 export class EditFoodComponent implements OnInit{
 
   public foodFormGroup!: FormGroup;
-  private id!: number;
-  private food!: Foods;
-  
+  private id!: string;
+  private food!: Food;
+
   constructor(private fb: FormBuilder,
     private foodService: FoodService){}
 
@@ -22,7 +22,7 @@ export class EditFoodComponent implements OnInit{
       next: f => {
         this.food = f;
         this.fb.group({
-          id: [f.id],
+          id: [f.foodId],
           name: [f.name, Validators.required],
           price: [f.price, Validators.required],
           favorite: [f.favorite],

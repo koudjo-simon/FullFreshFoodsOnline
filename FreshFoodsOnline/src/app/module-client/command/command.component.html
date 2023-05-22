@@ -36,10 +36,10 @@
                                     <tr *ngFor="let f of commandLines">
                                         <td> {{ f.food.name }} </td>
                                         <td> {{ f.quantity}} </td>
-                                        <td> {{ f.totalPrice }} FCFA</td>
+                                        <td> {{ f.totalCommandLinePrice }} FCFA</td>
                                     </tr>
                                     <br>
-                                    <tr *ngIf="commandFoods">
+                                    <tr *ngIf="commandLines">
                                         <td><h5>Total Price</h5></td>
                                         <td><h5>{{totalPrice}}</h5></td>
                                     </tr>
@@ -103,7 +103,7 @@
                                     <label for="address" class="form-label">Address</label>
                                     <input class="form-control" formControlName="address" type="text" id="address">
                                     <small *ngIf="commandFormGroup.controls['address'].errors && commandFormGroup.controls['address'].touched" class="text-danger">
-                                        {{ myValService.getValidatorErrorMessage('Adresse', commandFormGroup.controls['address'].errors) }}
+                                        {{ myValService.getValidatorErrorMessage('Address', commandFormGroup.controls['address'].errors) }}
                                     </small>
                                 </div>
                                 <button [disabled]="!this.commandFormGroup.valid" type="submit" class="btn btn-info">
@@ -114,6 +114,6 @@
                     </div>
                 </div>
             </div>
-        </div>           
+        </div>
     </div>
 </div>

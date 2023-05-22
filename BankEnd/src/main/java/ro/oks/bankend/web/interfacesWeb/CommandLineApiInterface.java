@@ -14,14 +14,19 @@ public interface CommandLineApiInterface {
     String URL = "/commandLine";
     String ID = "/{commandLineId}";
 
-    @PostMapping(Constants.BASE_URL + URL + "/add")
+    @GetMapping(Constants.BASE_URL + URL + "get/{commandId}/commandLine")
+    List<CommandLineDTO> getCommandLines(@PathVariable String commandId) throws CommandNotFoundException;
+
+    @GetMapping(Constants.BASE_URL + URL + "/add")
     CommandLineDTO addCommandLine(@RequestParam(name = "foodId") String foodId,
                                           @RequestParam(name = "commandId") String commandId,
-                                          @RequestParam(name = "quantity") double quantity) throws FoodNotFoodException, CommandNotFoundException;
+                                          @RequestParam(name = "quantity") double quantity)
+            throws FoodNotFoodException, CommandNotFoundException;
 
     @PutMapping(Constants.BASE_URL + URL + ID + "/update")
     CommandLineDTO updateCommandLine(@PathVariable String commandLineId,
-                                     @RequestBody CommandLineDTO commandLineDTO) throws CommandLineNotFoundException;
+                                     @RequestBody CommandLineDTO commandLineDTO)
+            throws CommandLineNotFoundException;
 
     @DeleteMapping(Constants.BASE_URL + URL + ID + "/delete")
     void deleteCommandLine(@PathVariable String commandLineId) throws CommandLineNotFoundException;

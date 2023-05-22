@@ -1,8 +1,11 @@
-import { Client } from "./client";
-import { CommandLine } from "./command-line";
+import {Customer} from "./customer";
+import {CommandLine} from "./command-line";
 
 export interface Command {
-    client: Client,
-    commands: CommandLine[],
-    date : Date
+  commandId: string,
+  customer: Customer,
+  totalCommandPrice: number,
+  commandDate: string,
+  commandStatus: string,
+  lastModifiedDate: string
 }

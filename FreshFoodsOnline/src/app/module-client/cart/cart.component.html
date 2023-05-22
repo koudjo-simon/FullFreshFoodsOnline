@@ -16,20 +16,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let commandLinesFood of commandLines">
-                        <td> {{ commandLinesFood.food.name }} </td>
-                        <td> {{commandLinesFood.food.price}} </td>
-                        <td> {{ commandLinesFood.food.cookTime }} </td>
-                        <td> {{ commandLinesFood.food.origins }} </td>
-                        <td> {{ commandLinesFood.quantity }} </td>
-                        <td> <button class="btn btn-outline-danger" (click)="handleDeleteFood(commandLinesFood)">Delete</button> </td>
+                    <tr *ngFor="let c of commandLines">
+                        <td> {{ c.food.name }} </td>
+                        <td> {{ c.food.price }} </td>
+                        <td> {{ c.food.cookTime }} </td>
+                        <td> {{ c.food.origins }} </td>
+                        <td> {{ c.quantity }} </td>
+                        <td> <button class="btn btn-outline-danger" (click)="handleDeleteFood(c)">Delete</button> </td>
                         <td> <button class="btn btn-outline-warning">Edit</button> </td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="card-footer d-flex justify-content-between align-items-baseline">
-            <span class="card-text"> <h4>Total of product: {{ selectedFoods.length }}</h4> </span>
+            <span class="card-text"> <h4>Total of product: {{ commandLines.length }}</h4> </span>
             <span class="card-text"> <h4>Total Price: {{totalPrice}} FCFA</h4> </span>
         </div>
     </div>

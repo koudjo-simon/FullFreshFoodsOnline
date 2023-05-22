@@ -79,7 +79,8 @@ public class BankEndApplication {
                         command.setLastModifiedDate(new Date());
                         command.setTotalCommandPrice(0);
                         command.setCustomer(customer);
-                        return commandRepository.save(command);
+                        commandRepository.save(command);
+                        return null;
                     });
             commandRepository.findAll().stream()
                     .map(command -> {

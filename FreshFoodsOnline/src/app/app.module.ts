@@ -12,6 +12,7 @@ import { NewFoodComponent } from './module-admin/new-food/new-food.component';
 import { EditFoodComponent } from './module-admin/edit-food/edit-food.component';
 import { ModuleAdminModule } from './module-admin/module-admin.module';
 import { ModuleClientModule } from './module-client/module-client.module';
+import {HttpClientModule} from "@angular/common/http";
 
 registerLocaleData(localeFr, 'fr')
 
@@ -27,6 +28,7 @@ registerLocaleData(localeFr, 'fr')
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     ModuleAdminModule,
     ModuleClientModule
   ],
